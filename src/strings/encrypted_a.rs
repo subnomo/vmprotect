@@ -16,26 +16,26 @@ impl<'t> AsRef<CStr> for EncryptedStringA<'t> {
 }
 impl<'t> Into<CString> for EncryptedStringA<'t> {
     fn into(self) -> CString {
-        (self.as_ref(): &CStr).to_owned()
+        (self.as_ref() as &CStr).to_owned()
     }
 }
 impl<'t> AsRef<str> for EncryptedStringA<'t> {
     fn as_ref(&self) -> &str {
-        (self.as_ref(): &CStr).to_str().unwrap()
+        (self.as_ref() as &CStr).to_str().unwrap()
     }
 }
 impl<'t> Into<String> for EncryptedStringA<'t> {
     fn into(self) -> String {
-        (self.as_ref(): &str).to_owned()
+        (self.as_ref() as &str).to_owned()
     }
 }
 impl<'t> std::fmt::Display for EncryptedStringA<'t> {
     fn fmt(&self, fmt: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        write!(fmt, "{}", self.as_ref(): &str)
+        write!(fmt, "{}", self.as_ref() as &str)
     }
 }
 impl<'t> std::fmt::Debug for EncryptedStringA<'t> {
     fn fmt(&self, fmt: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        write!(fmt, "{:?}", self.as_ref(): &CStr)
+        write!(fmt, "{:?}", self.as_ref() as &CStr)
     }
 }

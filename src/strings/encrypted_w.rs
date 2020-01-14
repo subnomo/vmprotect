@@ -16,16 +16,16 @@ impl<'t> AsRef<U16CStr> for EncryptedStringW<'t> {
 }
 impl<'t> Into<U16CString> for EncryptedStringW<'t> {
     fn into(self) -> U16CString {
-        (self.as_ref(): &U16CStr).to_owned()
+        (self.as_ref() as &U16CStr).to_owned()
     }
 }
 impl<'t> Into<String> for EncryptedStringW<'t> {
     fn into(self) -> String {
-        (self.as_ref(): &U16CStr).to_string().unwrap()
+        (self.as_ref() as &U16CStr).to_string().unwrap()
     }
 }
 impl<'t> Into<OsString> for EncryptedStringW<'t> {
     fn into(self) -> OsString {
-        (self.as_ref(): &U16CStr).to_os_string()
+        (self.as_ref() as &U16CStr).to_os_string()
     }
 }

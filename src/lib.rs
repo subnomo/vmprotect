@@ -1,5 +1,3 @@
-#![feature(type_ascription, proc_macro_hygiene, stmt_expr_attributes)]
-
 pub use real_c_string;
 
 pub mod internal;
