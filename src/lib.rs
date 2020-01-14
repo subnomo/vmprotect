@@ -1,4 +1,7 @@
-pub use real_c_string;
+use proc_macro_hack::proc_macro_hack;
+
+#[proc_macro_hack]
+pub use real_c_string::{real_c_string, real_c_wstring};
 
 pub mod internal;
 #[cfg(feature = "licensing")]
@@ -13,7 +16,7 @@ macro_rules! protected {
     ($x: expr; mutate; $code: expr) => {{
         let ret;
         unsafe {
-            $crate::internal::VMProtectBeginMutation($crate::real_c_string::real_c_string!($x))
+            $crate::internal::VMProtectBeginMutation($crate::real_c_string!($x))
         };
         ret = $code;
         unsafe {
@@ -24,7 +27,7 @@ macro_rules! protected {
     ($x: expr; virtualize false; $code: expr) => {{
         let ret;
         unsafe {
-            $crate::internal::VMProtectBeginVirtualization($crate::real_c_string::real_c_string!(
+            $crate::internal::VMProtectBeginVirtualization($crate::real_c_string!(
                 $x
             ))
         };
@@ -38,7 +41,7 @@ macro_rules! protected {
         let ret;
         unsafe {
             $crate::internal::VMProtectBeginVirtualizationLockByKey(
-                $crate::real_c_string::real_c_string!($x),
+                $crate::real_c_string!($x),
             )
         };
         ret = $code;
@@ -49,7 +52,7 @@ macro_rules! protected {
     }};
     ($x: expr; ultra false; $code: expr) => {{
         let ret;
-        unsafe { $crate::internal::VMProtectBeginUltra($crate::real_c_string::real_c_string!($x)) };
+        unsafe { $crate::internal::VMProtectBeginUltra($crate::real_c_string!($x)) };
         ret = $code;
         unsafe {
             $crate::internal::VMProtectEnd();
@@ -59,7 +62,7 @@ macro_rules! protected {
     ($x: expr; ultra true; $code: expr) => {{
         let ret;
         unsafe {
-            $crate::internal::VMProtectBeginUltraLockByKey($crate::real_c_string::real_c_string!(
+            $crate::internal::VMProtectBeginUltraLockByKey($crate::real_c_string!(
                 $x
             ))
         };
@@ -72,7 +75,7 @@ macro_rules! protected {
     (A; $x: expr) => {
         $crate::strings::encrypted_a::EncryptedStringA(
             unsafe {
-                $crate::internal::VMProtectDecryptStringA($crate::real_c_string::real_c_string!($x))
+                $crate::internal::VMProtectDecryptStringA($crate::real_c_string!($x))
             },
             std::marker::PhantomData,
         ) as $crate::strings::encrypted_a::EncryptedStringA
@@ -80,7 +83,7 @@ macro_rules! protected {
     (W; $x: expr) => {
         $crate::strings::encrypted_w::EncryptedStringW(
             unsafe {
-                $crate::internal::VMProtectDecryptStringW($crate::real_c_string::real_c_wstring!(
+                $crate::internal::VMProtectDecryptStringW($crate::real_c_wstring!(
                     $x
                 ))
             },

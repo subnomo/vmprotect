@@ -15,6 +15,7 @@ strings = []
 service = []
 
 [dependencies]
+proc-macro-hack = "0.5.11"
 real_c_string = { git = "https://github.com/subnomo/real_c_string" }
 widestring = "0.4.0"
 bitflags = "1.1.0"
